@@ -66,6 +66,7 @@ route.post("/",[
     try{
 
         const profile=await Profile.findOneAndUpdate({user:req._id},{$set:profileFields},{new:true,upsert:true})
+        res.json(profile)
     }catch(err){
         console.log(err.message)
         res.status(500).send("server error")
