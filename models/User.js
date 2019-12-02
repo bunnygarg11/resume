@@ -22,11 +22,15 @@
      date:{
          type:Date,
          default:Date.now
+     },
+     token:{
+         type:String
      }
  })
  UserSchema.methods.generateAuthToken=async function(){
      const user=this
      const token=jwt.sign({_id:user._id.toString()},"thisisjwt",{expiresIn:36000})
+     user.token=token
      return token
  }
 //  UserSchema.statics.findByCredentials=async (email,password)=>{
