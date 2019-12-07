@@ -5,11 +5,14 @@ import Landing from "./components/layout/Landing"
 import Login from "./components/Auth/Login"
 import Register from "./components/Auth/Register"
 // import logo from './logo.svg';
+import {Provider} from "react-redux"
+import store from "./store"
 import './App.css';
 
 const App=()=>{
   return (
-    <Router>
+   <Provider store={store}>
+      <Router>
     <Fragment>
       <Navbar/>
       {/* <Landing/> */}
@@ -23,6 +26,7 @@ const App=()=>{
       </section>
     </Fragment>
     </Router>
+   </Provider>
   );
 }
 

@@ -2,6 +2,7 @@
 import React,{Fragment,useState} from "react"
 import {connect} from "react-redux"
 import {Link,Redirect} from "react-router-dom"
+import Axios from "axios"
 // import {setAlert} from "../../actions/alert"
 // import {register} from "../../actions/auth"
 import PropTypes from "prop-types"
@@ -25,8 +26,30 @@ const Register=()=>{
         e.preventDefault()
         if(password!==password2){
             // setAlert("Passwords do not match","danger")
+            console.log("password not matched");
+            
         }else{
             // Register({name,email,password})
+            let newObject={
+                name,
+                email,
+                password
+            }
+            const body=JSON.stringify(newObject)
+            const config={
+                headers:{
+                    "content-type":"application/json"
+                }
+            }
+            try {
+                const res=await Axios.post("/api/users",body,config)
+                console.log(res.data);
+                
+                
+            } catch (error) {
+                console.log(error.response.data);
+                
+            }
             
         }
     }
