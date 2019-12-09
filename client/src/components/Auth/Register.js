@@ -9,14 +9,14 @@ import PropTypes from "prop-types"
 
 
 
-const Register=(props)=>{
+const Register=({setAlert,register,isAuthenticated})=>{
     const [formData,setFormData]=useState({
         name:"",
         email:"",
         password:"",
         password2:""
     })
-    const  {setAlert,register}=props
+    // const  {setAlert,register}=props
     const {name,email,password,password2}=formData
 
     const onChange=e=>{
@@ -53,9 +53,9 @@ const Register=(props)=>{
             
         }
     }
-    // if(isAuthenticated){
-    //     return <Redirect to="/dashboard"/>
-    // }
+    if(isAuthenticated){
+        return <Redirect to="/dashboard"/>
+    }
 return(
     <Fragment>
         <h1 className="large text-primary">Sign Up</h1>
@@ -70,6 +70,7 @@ return(
                     name="name"
                     value={name}
                     onChange={e=>onChange(e)}
+                    required
                 />
             </div>
             <div className="form-group">
@@ -79,6 +80,7 @@ return(
                     name="email"
                     value={email}
                     onChange={e=>onChange(e)}
+                    required
                 />
             </div>
             <small className='form-text'>
@@ -92,6 +94,7 @@ return(
             name='password'
             value={password}
             onChange={e => onChange(e)}
+            minLength="6"
           />
         </div>
         <div className='form-group'>
@@ -101,6 +104,7 @@ return(
             name='password2'
             value={password2}
             onChange={e => onChange(e)}
+            minLength="6"
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register"/>
@@ -111,4 +115,9 @@ return(
     </Fragment>
 )
 }
-export default connect(null,{setAlert,register})(Register)
+const mapStateTopProps=(state)=>{
+    return {
+        isAuthenticated:state.auth.isAuthenticated
+    }
+}
+export default connect(mapStateTopProps,{setAlert,register})(Register)

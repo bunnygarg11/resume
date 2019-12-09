@@ -3,13 +3,13 @@ import React,{Fragment,useState} from "react"
 import {connect} from "react-redux"
 import {Link,Redirect} from "react-router-dom"
 import Axios from "axios"
-// import {setAlert} from "../../actions/alert"
-// import {register} from "../../actions/auth"
+import {setAlert} from "../../actions/alert"
+import {login} from "../../actions/auth"
 import PropTypes from "prop-types"
 
 
 
-const Login=()=>{
+const Login=({login,isAuthenticated})=>{
     const [formData,setFormData]=useState({
         email:"",
         password:""
@@ -22,11 +22,13 @@ const Login=()=>{
     }
     const onSubmit=async e=>{
         e.preventDefault()
+        login(email,password)
+
        
     }
-    // if(isAuthenticated){
-    //     return <Redirect to="/dashboard"/>
-    // }
+    if(isAuthenticated){
+        return <Redirect to="/dashboard"/>
+    }
 return(
     <Fragment>
         <h1 className="large text-primary">Login</h1>
@@ -61,4 +63,10 @@ return(
     </Fragment>
 )
 }
-export default Login
+
+const mapStateTopProps=(state)=>{
+    return {
+        isAuthenticated:state.auth.isAuthenticated
+    }
+}
+export default connect(mapStateTopProps,{login})(Login)

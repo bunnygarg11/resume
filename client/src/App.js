@@ -1,16 +1,24 @@
-import React, {Fragment}from 'react';
+import React, {Fragment,useEffect}from 'react';
 import {BrowserRouter as Router,Route,Switch} from "react-router-dom"
 import Navbar from "./components/layout/Navbar"
 import Landing from "./components/layout/Landing"
 import Alert from "./components/layout/alert"
 import Login from "./components/Auth/Login"
 import Register from "./components/Auth/Register"
+import setAuthToken from "./utils/setAuthToken"
+import {loaduser} from "./actions/auth"
 // import logo from './logo.svg';
 import {Provider} from "react-redux"
 import store from "./store"
 import './App.css';
 
+if(localStorage.token){
+  setAuthToken(localStorage.token)
+}
 const App=()=>{
+ useEffect(()=>{
+  store.dispatch(loaduser())
+ },[])
   return (
    <Provider store={store}>
       <Router>

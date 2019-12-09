@@ -1,4 +1,5 @@
-import {REGISTER_FAIL,REGISTER_SUCCESS} from "../actions/types"
+import {REGISTER_FAIL,REGISTER_SUCCESS,USER_LOADED,AUTH_ERROR, LOGIN_FAIL,LOGIN_SUCCESS} from "../actions/types"
+import { LOADIPHLPAPI } from "dns"
 
 const initialState={
     token:localStorage.getItem("token"),
@@ -11,14 +12,24 @@ const initialState={
 export default function(state=initialState,action){
     const {type,payload}=action
     switch(type){
+        case LOGIN_SUCCESS:
         case REGISTER_SUCCESS:
             localStorage.setItem("token",payload.token)
             return {
                 ...state,
-                token:payload,
+                ...payload,
                 isAuthenticated:true,
                 loading:false
             }
+        case USER_LOADED:
+            return{
+                ...state,
+                isAuthenticated:true,
+                user:payload,
+                loading:false
+            }
+        case LOGIN_FAIL:
+        case AUTH_ERROR:
         case REGISTER_FAIL:
             localStorage.removeItem("token")
             return {
