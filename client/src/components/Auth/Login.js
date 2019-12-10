@@ -63,6 +63,10 @@ return(
     </Fragment>
 )
 }
+Login.propTypes = {
+    login: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool
+  };
 
 const mapStateTopProps=(state)=>{
     return {

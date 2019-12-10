@@ -1,5 +1,5 @@
-import {REGISTER_FAIL,REGISTER_SUCCESS,USER_LOADED,AUTH_ERROR, LOGIN_FAIL,LOGIN_SUCCESS} from "../actions/types"
-import { LOADIPHLPAPI } from "dns"
+import {REGISTER_FAIL,REGISTER_SUCCESS,USER_LOADED,AUTH_ERROR, LOGIN_FAIL,LOGIN_SUCCESS,LOGOUT} from "../actions/types"
+// import { LOADIPHLPAPI } from "dns"
 
 const initialState={
     token:localStorage.getItem("token"),
@@ -28,6 +28,7 @@ export default function(state=initialState,action){
                 user:payload,
                 loading:false
             }
+        case LOGOUT:
         case LOGIN_FAIL:
         case AUTH_ERROR:
         case REGISTER_FAIL:
@@ -36,7 +37,8 @@ export default function(state=initialState,action){
                 ...state,
                 token:null,
                 isAuthenticated:false,
-                loading:false
+                loading:false,
+                user:null
             }
         default:
             return state

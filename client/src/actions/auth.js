@@ -1,4 +1,4 @@
-import {REGISTER_FAIL,REGISTER_SUCCESS,USER_LOADED,AUTH_ERROR,LOGIN_SUCCESS,LOGIN_FAIL} from "./types"
+import {REGISTER_FAIL,REGISTER_SUCCESS,USER_LOADED,AUTH_ERROR,LOGIN_SUCCESS,LOGIN_FAIL,LOGOUT} from "./types"
 
 import Axios from "axios"
 import {setAlert} from "./alert"
@@ -18,6 +18,7 @@ export  const register=({name,email,password})=>async dispatch=>{
             type:REGISTER_SUCCESS,
             payload:res.data
         })
+        dispatch(loaduser())
     } catch (err) {
         const error=err.response.data.errors
         error.forEach(er=>dispatch(setAlert(er.msg,"danger")))
@@ -58,6 +59,7 @@ export const login=(email,password)=>async dispatch=>{
             type:LOGIN_SUCCESS,
             payload:res.data
         })
+        dispatch(loaduser())
     } catch (err) {
         const error=err.response.data.errors
         error.forEach(er=>dispatch(setAlert(er.msg,"danger")))
@@ -69,4 +71,11 @@ export const login=(email,password)=>async dispatch=>{
         
     }
 
+}
+export const logout=()=>dispatch=>{
+
+    dispatch({
+        type:LOGOUT
+
+    })
 }
