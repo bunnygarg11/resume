@@ -1,15 +1,27 @@
-import React,{useEffect} from "react"
+import React,{useEffect,Fragment} from "react"
 import {connect} from "react-redux"
 import {getCurrentprofile} from "../../actions/profile"
+import {Redirect,Link} from "react-router-dom"
 
-const Dashboard =({profile,getCurrentprofile,auth})=>{
+const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{isAuthenticated,user}})=>{
     useEffect(()=>{
         getCurrentprofile()
     },[])
+   
     return (
-    <div>
-        DashBoard
-    </div>
+    <Fragment>
+        <h1 className="large text-primary">Dashboard</h1>
+        <p className="lead">
+        <i className="fas fa-user"/>
+        Welcome {user && user.name}
+        </p>
+        {profile!==null?(<Fragment>has</Fragment>):(<Fragment>
+            <p>You have not yet stup a profile, please add some info</p>
+            <Link to="/create-profile">
+            Create Profile
+            </Link>
+        </Fragment>)}
+    </Fragment>
 )}
 const mapStatetoProps=state=>({
     profile:state.profile,
