@@ -2,6 +2,7 @@ import React,{useEffect,Fragment} from "react"
 import {connect} from "react-redux"
 import {getCurrentprofile} from "../../actions/profile"
 import {Redirect,Link} from "react-router-dom"
+import DashboardActions from "./DashboardActions"
 
 const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{isAuthenticated,user}})=>{
     useEffect(()=>{
@@ -15,7 +16,9 @@ const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{isAuthentic
         <i className="fas fa-user"/>
         Welcome {user && user.name}
         </p>
-        {profile!==null?(<Fragment>has</Fragment>):(<Fragment>
+        {profile!==null?(<Fragment>
+            <DashboardActions/>
+        </Fragment>):(<Fragment>
             <p>You have not yet stup a profile, please add some info</p>
             <Link to="/create-profile">
             Create Profile
