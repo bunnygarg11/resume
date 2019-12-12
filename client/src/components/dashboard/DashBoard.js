@@ -3,6 +3,8 @@ import {connect} from "react-redux"
 import {getCurrentprofile} from "../../actions/profile"
 import {Redirect,Link} from "react-router-dom"
 import DashboardActions from "./DashboardActions"
+import Experience from "./Experience"
+import Education from "./Education"
 
 const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{isAuthenticated,user}})=>{
     useEffect(()=>{
@@ -18,6 +20,8 @@ const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{isAuthentic
         </p>
         {profile!==null?(<Fragment>
             <DashboardActions/>
+            <Experience experience={profile.experience}/>
+            <Education education={profile.education}/>
         </Fragment>):(<Fragment>
             <p>You have not yet stup a profile, please add some info</p>
             <Link to="/create-profile">
