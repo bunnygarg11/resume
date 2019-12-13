@@ -1,12 +1,12 @@
 import React,{useEffect,Fragment} from "react"
 import {connect} from "react-redux"
-import {getCurrentprofile} from "../../actions/profile"
+import {getCurrentprofile,deleteAccount} from "../../actions/profile"
 import {Redirect,Link} from "react-router-dom"
 import DashboardActions from "./DashboardActions"
 import Experience from "./Experience"
 import Education from "./Education"
 
-const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{isAuthenticated,user}})=>{
+const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{user},deleteAccount})=>{
     useEffect(()=>{
         getCurrentprofile()
     },[])
@@ -22,6 +22,12 @@ const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{isAuthentic
             <DashboardActions/>
             <Experience experience={profile.experience}/>
             <Education education={profile.education}/>
+            <div className="my-2">
+                <button className="btn btn-danger" onClick={deleteAccount} >
+                    <i className="fas fa-user-minus" />
+                    Delete my account
+                </button>
+            </div>
         </Fragment>):(<Fragment>
             <p>You have not yet stup a profile, please add some info</p>
             <Link to="/create-profile">
@@ -34,4 +40,4 @@ const mapStatetoProps=state=>({
     profile:state.profile,
     auth:state.auth
 })
-export default connect(mapStatetoProps,{getCurrentprofile})(Dashboard)
+export default connect(mapStatetoProps,{getCurrentprofile,deleteAccount})(Dashboard)

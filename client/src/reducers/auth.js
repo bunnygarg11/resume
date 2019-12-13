@@ -1,4 +1,4 @@
-import {REGISTER_FAIL,REGISTER_SUCCESS,USER_LOADED,AUTH_ERROR, LOGIN_FAIL,LOGIN_SUCCESS,LOGOUT} from "../actions/types"
+import {REGISTER_FAIL,REGISTER_SUCCESS,USER_LOADED,AUTH_ERROR, LOGIN_FAIL,LOGIN_SUCCESS,LOGOUT,ACCOUNT_DELETED} from "../actions/types"
 // import { LOADIPHLPAPI } from "dns"
 
 const initialState={
@@ -28,6 +28,7 @@ export default function(state=initialState,action){
                 user:payload,
                 loading:false
             }
+        case ACCOUNT_DELETED:
         case LOGOUT:
         case LOGIN_FAIL:
         case AUTH_ERROR:
