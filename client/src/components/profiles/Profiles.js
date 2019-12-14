@@ -6,9 +6,11 @@ import ProfileItem from "./profileItem"
 const Profiles=({profile:{profiles,loading},getProfiles})=>{
     useEffect(()=>{
         getProfiles()
-    },[])
+    },[getProfiles])
 
-    return (
+    return loading ?(
+        <Fragment>Spinner</Fragment>
+    ):(
         <Fragment>
             <h1 className="large text-primary">Developers</h1>
             <p>
