@@ -149,7 +149,7 @@ route.delete('/:id', auth, async (req, res) => {
           text: req.body.text,
           name: user.name,
           avatar: user.avatar,
-          user: req.user.id
+          user: user.id
         };
   
         post.comments.unshift(newComment);
