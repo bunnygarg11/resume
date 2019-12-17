@@ -9,7 +9,7 @@ import Education from "./Education"
 const Dashboard =({profile:{profile,loading},getCurrentprofile,auth:{user},deleteAccount})=>{
     useEffect(()=>{
         getCurrentprofile()
-    },[])
+    },[getCurrentprofile])
    
     return (
     <Fragment>
